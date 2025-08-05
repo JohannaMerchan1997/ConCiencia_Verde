@@ -24,11 +24,12 @@ class RolController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'numero' => 'required|integer',
             'nombre' => 'required|string|max:255',
             'tipo' => 'nullable|string|max:255',
         ]);
 
-        Rol::create($request->only('nombre', 'tipo'));
+        Rol::create($request->only('numero', 'nombre', 'tipo'));
 
         return redirect()->route('roles.index')->with('success', 'Rol creado correctamente.');
     }
@@ -37,11 +38,12 @@ class RolController extends Controller
     public function update(Request $request, Rol $rol)
     {
         $request->validate([
+            'numero' => 'required|integer',
             'nombre' => 'required|string|max:255',
             'tipo' => 'nullable|string|max:255',
         ]);
 
-        $rol->update($request->only('nombre', 'tipo'));
+        $rol->update($request->only('numero', 'nombre', 'tipo'));
 
         return redirect()->route('roles.index')->with('success', 'Rol actualizado correctamente.');
     }
@@ -54,6 +56,7 @@ class RolController extends Controller
         return redirect()->route('roles.index')->with('success', 'Rol eliminado correctamente.');
     }
 }
+
 
 
 

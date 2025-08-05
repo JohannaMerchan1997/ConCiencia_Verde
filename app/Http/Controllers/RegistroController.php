@@ -28,6 +28,7 @@ class RegistroController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'numero' => 'required|integer', 
             'codigo_usuario' => 'required|integer|exists:usuarios,id',
             'codigo_evento' => 'required|integer|exists:eventos,id',
             'codigo_estudiante' => 'required|integer|exists:estudiantes,id',

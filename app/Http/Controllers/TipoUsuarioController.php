@@ -53,6 +53,7 @@ class TipoUsuarioController extends Controller
     public function update(Request $request, TipoUsuario $tipoUsuario)
     {
         $request->validate([
+            'numero', 
             'nombre' => 'required|unique:tipo_usuarios,nombre,' . $tipoUsuario->id,
         ]);
 

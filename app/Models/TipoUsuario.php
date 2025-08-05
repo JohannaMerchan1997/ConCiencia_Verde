@@ -10,6 +10,7 @@ class TipoUsuario extends Model
     use HasFactory;
 
     protected $fillable = [
+        'numero',
         'nombre',
     ];
 

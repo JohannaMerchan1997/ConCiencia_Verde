@@ -11,7 +11,7 @@ class Usuario extends Model
 {
     protected $table = 'usuarios'; // Nombre exacto de la tabla
     protected $fillable = [
-        'cedula', 'nombre', 'apellido', 'correo', 'celular', 'genero', 'tipo_usuario_id', 'role_id'
+        'numero','cedula', 'nombre', 'apellido', 'correo', 'celular', 'genero', 'tipo_usuario_id', 'role_id'
     ];
 
     public function tipoUsuario()

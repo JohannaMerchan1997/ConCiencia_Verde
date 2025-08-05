@@ -10,6 +10,7 @@ class TipoEvento extends Model
     use HasFactory;
 
     protected $fillable = [
+        'numero',
         'nombre',
     ];
 }

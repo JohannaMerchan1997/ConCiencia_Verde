@@ -21,6 +21,7 @@ class TipoEventoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'numero',
             'nombre' => 'required|string|max:255',
         ]);
 
@@ -37,6 +38,7 @@ class TipoEventoController extends Controller
     public function update(Request $request, TipoEvento $tipo_evento)
     {
         $request->validate([
+            'numero',
             'nombre' => 'required|string|max:255',
         ]);
 

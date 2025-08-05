@@ -28,6 +28,7 @@ class UsuariosController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'numero' => 'required',
             'cedula' => 'required',
             'nombre' => 'required',
             'apellido' => 'required',
