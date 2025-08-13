@@ -23,6 +23,7 @@
                 <th>Género</th>
                 <th>Rol</th>
                 <th>Tipo Usuario</th>
+                <th>Acciones</th> {{-- Nueva columna --}}
             </tr>
         </thead>
         <tbody>
@@ -37,6 +38,15 @@
                 <td>{{ $usuario->genero }}</td>
                 <td>{{ $usuario->role->nombre ?? 'N/A' }}</td>
                 <td>{{ $usuario->tipoUsuario->nombre ?? 'N/A' }}</td>
+                <td>
+                    <form action="{{ route('usuarios.destroy', $usuario->id) }}" method="POST" onsubmit="return confirm('¿Seguro que deseas eliminar este usuario?');" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn-eliminar" style="background-color:#388e3c; padding: 6px 12px; border-radius: 5px; font-size: 0.85em; border: none; color: white; cursor: pointer; transition: background-color 0.25s ease;">
+                            Eliminar
+                        </button>
+                    </form>
+                </td>
             </tr>
         @endforeach
         </tbody>
@@ -48,51 +58,52 @@
     @endif
 
     {{-- Formulario para agregar nuevo usuario --}}
-<form action="{{ route('usuarios.store') }}" method="POST" style="background-color: #e8f5e9; padding: 1.5em; border-radius: 8px; box-shadow: 0 2px 10px rgba(102,187,106,0.15); margin-top: 2em;">
-    @csrf
-    <h4 style="color: #388e3c; margin-bottom: 1em;">Agregar nuevo usuario</h4>
-    <div style="display: flex; flex-wrap: wrap; gap: 1em;">
-        <input type="number" name="numero" placeholder="Número" required style="flex: 1 1 100px; padding: 8px; border: 1px solid #a5d6a7; border-radius: 6px; font-size: 1em; color: #2e4d26; background-color: #f9fff9;">
-        
-        <input type="text" name="cedula" placeholder="Cédula" required style="flex: 1 1 150px; padding: 8px; border: 1px solid #a5d6a7; border-radius: 6px; font-size: 1em; color: #2e4d26; background-color: #f9fff9;">
-        
-        <input type="text" name="nombre" placeholder="Nombre" required style="flex: 1 1 150px; padding: 8px; border: 1px solid #a5d6a7; border-radius: 6px; font-size: 1em; color: #2e4d26; background-color: #f9fff9;">
-        
-        <input type="text" name="apellido" placeholder="Apellido" required style="flex: 1 1 150px; padding: 8px; border: 1px solid #a5d6a7; border-radius: 6px; font-size: 1em; color: #2e4d26; background-color: #f9fff9;">
-        
-        <input type="email" name="correo" placeholder="Correo" required style="flex: 1 1 200px; padding: 8px; border: 1px solid #a5d6a7; border-radius: 6px; font-size: 1em; color: #2e4d26; background-color: #f9fff9;">
-        
-        <input type="text" name="celular" placeholder="Celular" style="flex: 1 1 150px; padding: 8px; border: 1px solid #a5d6a7; border-radius: 6px; font-size: 1em; color: #2e4d26; background-color: #f9fff9;">
-        
-        <select name="genero" required style="flex: 1 1 150px; padding: 8px; border: 1px solid #a5d6a7; border-radius: 6px; font-size: 1em; color: #2e4d26; background-color: #f9fff9;">
-            <option value="" disabled selected>Género</option>
-            <option value="Masculino">Masculino</option>
-            <option value="Femenino">Femenino</option>
-            <option value="Otro">Otro</option>
-        </select>
+    <form action="{{ route('usuarios.store') }}" method="POST" style="background-color: #e8f5e9; padding: 1.5em; border-radius: 8px; box-shadow: 0 2px 10px rgba(102,187,106,0.15); margin-top: 2em;">
+        @csrf
+        <h4 style="color: #388e3c; margin-bottom: 1em;">Agregar nuevo usuario</h4>
+        <div style="display: flex; flex-wrap: wrap; gap: 1em;">
+            <input type="number" name="numero" placeholder="Número" required style="flex: 1 1 100px; padding: 8px; border: 1px solid #a5d6a7; border-radius: 6px; font-size: 1em; color: #2e4d26; background-color: #f9fff9;">
+            
+            <input type="text" name="cedula" placeholder="Cédula" required style="flex: 1 1 150px; padding: 8px; border: 1px solid #a5d6a7; border-radius: 6px; font-size: 1em; color: #2e4d26; background-color: #f9fff9;">
+            
+            <input type="text" name="nombre" placeholder="Nombre" required style="flex: 1 1 150px; padding: 8px; border: 1px solid #a5d6a7; border-radius: 6px; font-size: 1em; color: #2e4d26; background-color: #f9fff9;">
+            
+            <input type="text" name="apellido" placeholder="Apellido" required style="flex: 1 1 150px; padding: 8px; border: 1px solid #a5d6a7; border-radius: 6px; font-size: 1em; color: #2e4d26; background-color: #f9fff9;">
+            
+            <input type="email" name="correo" placeholder="Correo" required style="flex: 1 1 200px; padding: 8px; border: 1px solid #a5d6a7; border-radius: 6px; font-size: 1em; color: #2e4d26; background-color: #f9fff9;">
+            
+            <input type="text" name="celular" placeholder="Celular" style="flex: 1 1 150px; padding: 8px; border: 1px solid #a5d6a7; border-radius: 6px; font-size: 1em; color: #2e4d26; background-color: #f9fff9;">
+            
+            <select name="genero" required style="flex: 1 1 150px; padding: 8px; border: 1px solid #a5d6a7; border-radius: 6px; font-size: 1em; color: #2e4d26; background-color: #f9fff9;">
+                <option value="" disabled selected>Género</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+                <option value="Otro">Otro</option>
+            </select>
 
-        <select name="role_id" required style="flex: 1 1 150px; padding: 8px; border: 1px solid #a5d6a7; border-radius: 6px; font-size: 1em; color: #2e4d26; background-color: #f9fff9;">
-            <option value="" disabled selected>Selecciona Rol</option>
-            @foreach($roles as $rol)
-                <option value="{{ $rol->id }}">{{ $rol->nombre }}</option>
-            @endforeach
-        </select>
+            <select name="role_id" required style="flex: 1 1 150px; padding: 8px; border: 1px solid #a5d6a7; border-radius: 6px; font-size: 1em; color: #2e4d26; background-color: #f9fff9;">
+                <option value="" disabled selected>Selecciona Rol</option>
+                @foreach($roles as $rol)
+                    <option value="{{ $rol->id }}">{{ $rol->nombre }}</option>
+                @endforeach
+            </select>
 
-        <select name="tipo_usuario_id" required style="flex: 1 1 150px; padding: 8px; border: 1px solid #a5d6a7; border-radius: 6px; font-size: 1em; color: #2e4d26; background-color: #f9fff9;">
-            <option value="" disabled selected>Selecciona Tipo Usuario</option>
-            @foreach($tipos as $tipo)
-                <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
-            @endforeach
-        </select>
+            <select name="tipo_usuario_id" required style="flex: 1 1 150px; padding: 8px; border: 1px solid #a5d6a7; border-radius: 6px; font-size: 1em; color: #2e4d26; background-color: #f9fff9;">
+                <option value="" disabled selected>Selecciona Tipo Usuario</option>
+                @foreach($tipos as $tipo)
+                    <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
+                @endforeach
+            </select>
 
-        <button type="submit" style="background-color: #66bb6a; color: white; border: none; padding: 10px 18px; font-size: 1em; border-radius: 6px; cursor: pointer; flex: 1 1 150px; transition: background-color 0.3s ease;">
-            Agregar
-        </button>
-    </div>
-</form>
+            <button type="submit" style="background-color: #66bb6a; color: white; border: none; padding: 10px 18px; font-size: 1em; border-radius: 6px; cursor: pointer; flex: 1 1 150px; transition: background-color 0.3s ease;">
+                Agregar
+            </button>
+        </div>
+    </form>
 
 </div>
 @endsection
+
 
 
 
